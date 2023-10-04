@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Master\KaryawanController;
+use App\Http\Controllers\Master\LokasiController;
+use App\Http\Controllers\RakController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('/karyawan', KaryawanController::class);
+Route::apiResource('/rak', RakController::class);
+Route::apiResource('/lokasi', LokasiController::class);
