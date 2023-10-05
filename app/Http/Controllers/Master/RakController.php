@@ -6,6 +6,7 @@ use App\Models\Rak;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class RakController extends Controller
 {
@@ -47,24 +48,50 @@ class RakController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Rak $rak)
+    public function show($rak)
     {
-        //
+        $data = Rak::find($rak);
+        if(!$data) return response()->json(['msg' => 'Data tidak ditemukan'], 400);
+
+        return response()->json($data,200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Rak $rak)
+    public function update(Request $request,  $rak)
     {
-        //
+        $data = Rak::find($rak);
+        if(!$data) return response()->json(['msg' => 'Data tidak ditemukan'], 400);
+
+        $validator = Validator::make($request->all(),[
+            'lokasi_id' => 'required',
+            'rak' => ['required', Rule::unique('raks', 'rak')->where(function ($q) use ($data){
+                return $q->where('rak', '!=' , $data->rak);
+            })]
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['errors', $validator->errors()],422);
+        }
+
+        $data->lokasi_id = $request->input('lokasi_id');
+        $data->rak = $request->input('rak');
+        $data->save();
+
+        return response()->json(['msg' => 'Data berhasil diubah'],200);
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Rak $rak)
+    public function destroy( $rak)
     {
-        //
+        $data = Rak::find($rak);
+        if(!$data) return response()->json(['msg' => 'Data tidak ditemukan'], 400);
+
+        $data->delete();
+        return response()->json(['msg' => 'Data berhasil dihapus'],200);
     }
 }

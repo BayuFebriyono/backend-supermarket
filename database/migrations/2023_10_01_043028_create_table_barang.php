@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('harga');
             $table->integer('stock');
             $table->text('catatan');
-            $table->boolean('diskon');
+            $table->decimal('diskon')->nullable();
             $table->timestamps();
         });
     }
