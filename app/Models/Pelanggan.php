@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 
-class Lokasi extends Model
+class Pelanggan extends Model
 {
     use HasFactory;
 
@@ -20,5 +20,4 @@ class Lokasi extends Model
             $model->id = Uuid::uuid4()->toString();
         });
     }
-
 }

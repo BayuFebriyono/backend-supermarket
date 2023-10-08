@@ -20,4 +20,8 @@ class Rak extends Model
             $model->id = Uuid::uuid4()->toString();
         });
     }
+
+    public function lokasi(){
+        return $this->belongsTo(Lokasi::class);
+    }
 }

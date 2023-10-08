@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->string('no_hp', 14);
-            $table->integer('poin');
+            $table->integer('poin')->nullable();
             $table->timestamps();
         });
     }

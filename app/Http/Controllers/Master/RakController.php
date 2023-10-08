@@ -15,7 +15,7 @@ class RakController extends Controller
      */
     public function index()
     {
-        return response()->json(Rak::all(),200);
+        return response()->json(Rak::with('lokasi')->get(),200);
     }
 
     /**

@@ -20,4 +20,8 @@ class Barang extends Model
             $model->id = Uuid::uuid4()->toString();
         });
     }
+
+    public function rak(){
+        return $this->belongsTo(Rak::class);
+    }
 }

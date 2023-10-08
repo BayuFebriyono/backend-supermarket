@@ -15,7 +15,7 @@ class BarangController extends Controller
      */
     public function index()
     {
-        return response()->json(Barang::all(), 200);
+        return response()->json(Barang::with('rak')->get(), 200);
     }
 
     /**
