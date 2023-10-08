@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Master\BarangController;
 use App\Http\Controllers\Master\KaryawanController;
 use App\Http\Controllers\Master\LokasiController;
@@ -28,3 +29,9 @@ Route::apiResource('/rak', RakController::class);
 Route::apiResource('/lokasi', LokasiController::class);
 Route::apiResource('/barang', BarangController::class);
 Route::apiResource('/pelanggan', PelangganController::class);
+
+Route::post('/login', [AuthController::class,'login']);
+
+Route::middleware('jwt.verify')->group(function(){
+    Route::get('/mycredentials',[AuthController::class,'getAuthenticatedUser']);
+});
