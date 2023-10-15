@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('detail_transaksi', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('transaksi_id');
+            $table->foreign('transaksi_id')->on('transaksis')->references('id')->onDelete('cascade');
             $table->foreignUuid('barang_id');
             $table->integer('harga_unit');
             $table->double('diskon');

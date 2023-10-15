@@ -26,8 +26,12 @@ class AuthController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
+        $expireInSeconds = JWTAuth::factory()->getTTL() * 60;
 
-        return response()->json(compact('token'));
+        return response()->json([
+            'token' => $token,
+            'expire_in' => $expireInSeconds
+        ]);
     }
 
     public function register(Request $request)

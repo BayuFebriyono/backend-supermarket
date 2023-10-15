@@ -5,8 +5,10 @@ use App\Http\Controllers\Master\BarangController;
 use App\Http\Controllers\Master\KaryawanController;
 use App\Http\Controllers\Master\LokasiController;
 use App\Http\Controllers\Master\PelangganController;
+use App\Http\Controllers\Master\PosisiController;
 use App\Http\Controllers\Master\RakController;
 use App\Http\Controllers\Master\UserController;
+use App\Http\Controllers\Transaksi\TransaksiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,11 +27,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Route Master Data
 Route::apiResource('/karyawan', KaryawanController::class);
 Route::apiResource('/rak', RakController::class);
 Route::apiResource('/lokasi', LokasiController::class);
 Route::apiResource('/barang', BarangController::class);
 Route::apiResource('/pelanggan', PelangganController::class);
+Route::apiResource('/posisi', PosisiController::class);
+
 
 
 Route::post('/login', [AuthController::class,'login']);
@@ -38,4 +43,12 @@ Route::middleware('jwt.verify')->group(function(){
     Route::get('/mycredentials',[AuthController::class,'getAuthenticatedUser']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::apiResource('/user', UserController::class);
+
+    // Route Transaksi
+    Route::controller(TransaksiController::class)->group(function (){
+        Route::post('/transaksi', 'store');
+        Route::put('/transaksi/{transaksi}', 'update');
+        Route::delete('/transaksi/{transaksi}', 'destroy');
+        Route::get('/transaksi/{transaksi}', 'show');
+    });
 });

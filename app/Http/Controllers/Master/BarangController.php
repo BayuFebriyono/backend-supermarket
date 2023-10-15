@@ -72,7 +72,7 @@ class BarangController extends Controller
             'nama_barang' => ['required', Rule::unique('barangs', 'nama_barang')->where(function ($q) use ($data){
                 return $q->where('nama_barang' , '!=' , $data->nama_barang);
             })],
-            'satuan' => 'required|',
+            'satuan' => 'required',
             'harga' => 'numeric|required',
             'stock' => 'numeric|required',
             'catatan' => 'required',

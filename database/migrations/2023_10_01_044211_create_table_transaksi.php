@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('karyawan_id');
+            $table->foreignUuid('user_id');
             $table->foreignUuid('pelanggan_id');
             $table->dateTime('tanggal');
-            $table->double('diskon');
-            $table->integer('total');
+            $table->double('diskon')->default(0);
+            $table->integer('total')->default(0);
             $table->timestamps();
         });
     }
