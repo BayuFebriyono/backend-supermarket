@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreign('transaksi_id')->on('transaksis')->references('id')->onDelete('cascade');
             $table->foreignUuid('barang_id');
             $table->integer('harga_unit');
-            $table->double('diskon');
+            $table->integer('unit');
+            $table->double('diskon')->default(0);
             $table->timestamps();
         });
     }

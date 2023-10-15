@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DetailTransaksiController;
 use App\Http\Controllers\Master\BarangController;
 use App\Http\Controllers\Master\KaryawanController;
 use App\Http\Controllers\Master\LokasiController;
@@ -39,6 +40,7 @@ Route::apiResource('/posisi', PosisiController::class);
 
 Route::post('/login', [AuthController::class,'login']);
 
+// Jwt Middleware
 Route::middleware('jwt.verify')->group(function(){
     Route::get('/mycredentials',[AuthController::class,'getAuthenticatedUser']);
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -50,5 +52,12 @@ Route::middleware('jwt.verify')->group(function(){
         Route::put('/transaksi/{transaksi}', 'update');
         Route::delete('/transaksi/{transaksi}', 'destroy');
         Route::get('/transaksi/{transaksi}', 'show');
+    });
+
+    // Detail Transaksi
+    Route::controller(DetailTransaksiController::class)->group(function (){
+        Route::post('/detail_transaksi', 'store');
+        Route::delete('/detail_transaksi/transaksi/{id}', 'destoryByTransaksiId');
+        Route::delete('/detail_transaksi/id/{id}', 'destroy');
     });
 });
